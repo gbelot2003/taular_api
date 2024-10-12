@@ -9,14 +9,20 @@ class Classes extends Model
 {
     use HasFactory;
 
-    public function teacher()
-    {
-        return $this->belongsTo(Teacher::class);
-    }
+    protected $table = 'classes';
 
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'classes_student', 'class_id');
+        return $this->belongsToMany(User::class, 'class_student')->whereHas('roles', function ($query) {
+            $query->where('name', 'alumno');
+        });
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id')->whereHas('roles', function ($query) {
+            $query->where('name', 'maestro');
+        });
     }
 
     public function schedules()

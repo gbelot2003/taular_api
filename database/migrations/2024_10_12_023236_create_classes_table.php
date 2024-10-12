@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
+            $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
 
-        Schema::create('classes_student', function (Blueprint $table) {
+        Schema::create('class_student', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            // Relación con la tabla users en lugar de students
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
