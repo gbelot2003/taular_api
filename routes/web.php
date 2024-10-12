@@ -2,6 +2,9 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\V1\TeacherController;
+use App\Http\Controllers\Web\V1\GradeController;
+
 use Inertia\Inertia;
 
 /*
@@ -32,4 +35,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('teachers', TeacherController::class);
+    Route::resource('grades', GradeController::class);
 });
