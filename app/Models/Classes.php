@@ -16,7 +16,7 @@ class Classes extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'class_student');
+        return $this->belongsToMany(Student::class, 'classes_student', 'class_id');
     }
 
     public function schedules()
