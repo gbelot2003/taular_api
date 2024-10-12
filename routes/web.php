@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\Web\V1\ClassesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\V1\TeacherController;
 use App\Http\Controllers\Web\V1\GradeController;
-
 use Inertia\Inertia;
 
 /*
@@ -38,4 +38,5 @@ Route::middleware([
 
     Route::resource('teachers', TeacherController::class);
     Route::resource('grades', GradeController::class);
+    Route::resource('clasess', ClassesController::class);
 });
