@@ -29,7 +29,30 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::middleware(['auth', 'role:administrador'])->group(function () {
+        Route::get('/admin/dashboard', function () {
+            return Inertia::render('Admin/Dashboard');
+        })->name('admin.dashboard');
+    });
+
+    Route::middleware(['auth', 'role:maestro'])->group(function () {
+        Route::get('/teacher/classes', function () {
+            return Inertia::render('Teacher/Classes');
+        })->name('teacher.classes');
+    });
+
+    Route::middleware(['auth', 'role:padre'])->group(function () {
+        Route::get('/parent/reports', function () {
+            return Inertia::render('Parent/Reports');
+        })->name('parent.reports');
+    });
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard', function () {
+            return Inertia::render('Dashboard');
+        })->name('dashboard');
+    });
+
+
+
 });
