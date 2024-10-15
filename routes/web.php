@@ -53,6 +53,6 @@ Route::middleware([
         })->name('dashboard');
     });
 
-
+    Route::get('/grades', [App\Http\Controllers\Web\V1\GradeController::class, 'index'])->name('grades.index');
 
 });

@@ -118,7 +118,7 @@ const logout = () => {
             <aside class="bg-blue-700 text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform transition duration-200 ease-in-out md:relative md:translate-x-0" :class="showingNavigation ? '-translate-x-full' : ''">
                 <nav>
                     <MenuItem name="Dashboard" icon="mdi-home" href="/dashboard" :active="route().current('dashboard')" />
-                    <MenuItem name="Cursos" icon="mdi-account-box-multiple-outline" href="/cursos" :active="route().current('cursos.index')" />
+                    <MenuItem name="Grados" icon="mdi-account-box-multiple-outline" href="/grades" :active="route().current('grades.index')" />
                     <MenuItem name="Estudiantes" icon="mdi-account-group" href="/estudiantes" :active="route().current('students.index')" />
                 </nav>
             </aside>
