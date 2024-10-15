@@ -18,7 +18,7 @@ const logout = () => {
 
 <template>
     <Head :title="title" />
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen flex flex-col bg-gray-100">
         <!-- Header -->
         <header class="bg-blue-900 text-white shadow-2xl">
             <div class="container mx-auto flex justify-between items-center h-16 px-4">
@@ -113,8 +113,8 @@ const logout = () => {
             </div>
         </header>
 
-        <!-- Sidebar Navigation -->
-        <div class="flex">
+        <!-- Sidebar and Main Content -->
+        <div class="flex-1 flex flex-col md:flex-row">
             <aside class="bg-blue-700 text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform transition duration-200 ease-in-out md:relative md:translate-x-0" :class="showingNavigation ? '-translate-x-full' : ''">
                 <nav>
                     <MenuItem name="Dashboard" icon="mdi-home" href="/dashboard" :active="route().current('dashboard')" />
