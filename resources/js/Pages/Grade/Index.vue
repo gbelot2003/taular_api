@@ -1,4 +1,3 @@
-<!-- Cursos.vue -->
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Pagination from '../../Components2/Pagination.vue';
@@ -15,9 +14,10 @@ const props = defineProps({
 
 let search = ref(props.filters.search);
 let showModal = ref(false);
+let form = ref({ name: '' }); // Asegúrate de inicializar el formulario
 
 watch(search, value => {
-    router.get('/cursos', { search: value }, { preserveState: true });
+    router.get('/grades', { search: value }, { preserveState: true });
 });
 
 const openModal = () => {
@@ -29,10 +29,14 @@ const closeModal = () => {
 };
 
 const createCurso = (formData) => {
-    router.post('/cursos', formData, {
+    router.post('/grades', formData, {
         onSuccess: () => {
             closeModal();
-        },
+            form.value.name = ''; // Limpiar el formulario después de guardar
+        }, onError: () => {
+            closeModal();
+            alert('Error al crear el grado');
+        }
     });
 };
 </script>
@@ -45,7 +49,7 @@ const createCurso = (formData) => {
         </template>
 
         <div class="container mx-auto p-4">
-            <h1 class="text-2xl font-bold mb-6">Administración de Cursos</h1>
+            <h1 class="text-2xl font-bold mb-6">Administración de Grados</h1>
 
             <div class="flex flex-col md:flex-row md:justify-between items-center mb-6">
                 <button @click="openModal" class="bg-blue-950 text-white py-2 px-4 rounded-full hover:bg-blue-800 transition duration-300">
@@ -58,13 +62,13 @@ const createCurso = (formData) => {
                 <table class="w-full bg-white rounded-lg shadow-lg">
                     <thead class="bg-blue-400 text-white">
                         <tr>
-                            <th class="p-3 text-left">Nombre</th>
+                            <th class="p-3 text-left">Grado</th>
                             <th class="p-3 text-left">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="curso in cursos.data" :key="curso.id" class="border-b border-gray-200 hover:bg-gray-100 transition duration-300">
-                            <td class="p-3">{{ curso.nombre }}</td>
+                        <tr v-for="curso in cursos" :key="curso.id" class="border-b border-gray-200 hover:bg-gray-100 transition duration-300">
+                            <td class="p-3">{{ curso.name }}</td>
                             <td class="p-3 flex items-center space-x-2">
                                 <Link :href="`cursos/${curso.id}/edit`" class="bg-blue-700 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
                                     Editar
@@ -83,12 +87,12 @@ const createCurso = (formData) => {
 
         <!-- Modal para crear un nuevo grado -->
         <Modal :show="showModal" @close="closeModal">
-            <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <div class="bg-white rounded-lg p-6 w-full">
                 <h2 class="text-xl font-bold mb-4">Crear Nuevo Grado</h2>
-                <form @submit.prevent="createCurso({ nombre: form.nombre })">
-                    <div class="mb-4">
-                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-                        <input type="text" id="nombre" v-model="form.nombre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required />
+                <form @submit.prevent="createCurso({ name: form.name })">
+                    <div class="mb-12">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" id="name" v-model="form.name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required />
                     </div>
                     <!-- Otros campos del formulario -->
                     <div class="flex justify-end">

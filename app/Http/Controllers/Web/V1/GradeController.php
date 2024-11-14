@@ -18,4 +18,17 @@ class GradeController extends Controller
             'filters' => Request::only(['search']),
         ]);
     }
+
+    public function store(RequestData $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        Grade::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('grades.index');
+    }
 }

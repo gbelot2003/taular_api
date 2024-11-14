@@ -54,5 +54,6 @@ Route::middleware([
     });
 
     Route::get('/grades', [App\Http\Controllers\Web\V1\GradeController::class, 'index'])->name('grades.index');
+    Route::post('/grades', [App\Http\Controllers\Web\V1\GradeController::class, 'store'])->name('grades.store');
 
 });
